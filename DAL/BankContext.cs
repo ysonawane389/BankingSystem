@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BankingSystem.DAL
 {
-    public class BankContex : DbContext
+    public class BankContext : DbContext
     {
 
-        public BankContex(DbContextOptions<BankContex> options) : base(options)
+        public BankContext(DbContextOptions<BankContext> options) : base(options)
         {
 
         }

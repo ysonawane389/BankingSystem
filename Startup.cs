@@ -28,7 +28,8 @@ namespace BankingSystem
             services.AddControllersWithViews();
             var ConnectionString = Configuration.GetConnectionString("constr");
             //entity framework
-            services.AddDbContext<BankContex>(options => options.UseSqlServer(ConnectionString));
+            services.AddDbContext<BankContext>(options => options.UseSqlServer(ConnectionString));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +56,7 @@ namespace BankingSystem
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Bank}/{action=NewUserDetails}/{id?}");
+                    pattern: "{controller=Bank}/{action=HomePage}/{id?}");
             });
         }
     }

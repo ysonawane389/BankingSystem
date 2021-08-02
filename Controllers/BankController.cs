@@ -11,13 +11,13 @@ namespace BankingSystem.Controllers
     public class BankController : Controller
     {
 
-        AdminLoginRepository adminRepo;
-        NewUserRepository userRepo;
+        BankRepository bankRepo;
+       
         
-        public BankController(BankContex _dbcontext)
+        public BankController(BankContext _dbcontext)
         {
-            adminRepo = new AdminLoginRepository(_dbcontext);
-            userRepo = new NewUserRepository(_dbcontext);
+            bankRepo = new BankRepository(_dbcontext);
+            
         }
 
         //HomePage
@@ -37,7 +37,7 @@ namespace BankingSystem.Controllers
         [HttpPost]
         public IActionResult AdminLogIn(int Adminid, string adminname, string password)
         {
-           AdminLoginViewModel ValidAdmin = adminRepo.GetAdmin().Where(i =>i.AdminId==Adminid && i.AdminName == adminname && i.Password == password).Select(e => new AdminLoginViewModel
+           AdminLoginViewModel ValidAdmin = bankRepo.GetAdmin().Where(i =>i.AdminId==Adminid && i.AdminName == adminname && i.Password == password).Select(e => new AdminLoginViewModel
             {
                AdminId=e.AdminId,
                 AdminName = e.AdminName,
@@ -48,7 +48,7 @@ namespace BankingSystem.Controllers
                 ViewBag.errormessage = "Enter Valid AdminId,  AdminName and Password";
                 return RedirectToAction("AdminLogIn");
             }
-            return RedirectToAction("HomePage");//remain
+            return RedirectToAction("NewUserDetails");
         }
 
 
@@ -56,17 +56,17 @@ namespace BankingSystem.Controllers
 
         public IActionResult NewUserDetails()
         {
-            var test = userRepo.GetNewUser().ToList();
-            var userlist = userRepo.GetNewUser().Select(e => new NewUserViewModel
+            var test = bankRepo.GetNewUser().ToList();
+            var userlist = bankRepo.GetNewUser().Select(e => new NewUserViewModel
             {
-                AccNo=e.AccNo,
-                AccHolderName=e.AccHolderName,
-                MobNo=e.MobNo,
-                EmailId=e.EmailId,
-                Gender=e.Gender,
-                DateOfBirth=e.DateOfBirth,
-                City=e.City,
-                AvlBalance=e.AvlBalance
+                AccNo = e.AccNo,
+                AccHolderName = e.AccHolderName,
+                MobNo = e.MobNo,
+                EmailId = e.EmailId,
+                Gender = e.Gender,
+                DateOfBirth = e.DateOfBirth,
+                City = e.City,
+                AvlBalance = e.AvlBalance
             }).ToList();
             return View(userlist);
         }
@@ -86,45 +86,6 @@ namespace BankingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                NewUser  userEntity = new NewUser()
-                {
-                    AccNo = user.AccNo,
-                    AccHolderName = user.AccHolderName,
-                    MobNo = user.MobNo,
-                    EmailId = user.EmailId,
-                    Gender = user.Gender,
-                    DateOfBirth = user.DateOfBirth,
-                    City = user.City,
-                    AvlBalance = user.AvlBalance
-                };
-                userRepo.CreateNewUser(userEntity);
-            }
-            return RedirectToAction("NewUserDetails");
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int accno)
-        {
-            NewUserViewModel selecteUser = userRepo.GetNewUser().Where(i => i.AccNo == accno).Select(e => new NewUserViewModel
-            {
-
-                AccNo = e.AccNo,
-                AccHolderName = e.AccHolderName,
-                MobNo = e.MobNo,
-                EmailId = e.EmailId,
-                Gender = e.Gender,
-                DateOfBirth = e.DateOfBirth,
-                City = e.City,
-                AvlBalance = e.AvlBalance
-            }).FirstOrDefault();
-            return View(selecteUser);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(NewUserViewModel user)
-        {
-            if (ModelState.IsValid)
-            {
                 NewUser userEntity = new NewUser()
                 {
                     AccNo = user.AccNo,
@@ -136,36 +97,74 @@ namespace BankingSystem.Controllers
                     City = user.City,
                     AvlBalance = user.AvlBalance
                 };
-                userRepo.EditNewUser(userEntity);
+                bankRepo.CreateNewUser(userEntity);
             }
             return RedirectToAction("NewUserDetails");
         }
 
-        [HttpGet]
-        public IActionResult Details(int accno)
-        {
-            NewUserViewModel selecteUser = userRepo.GetNewUser().Where(i => i.AccNo  == accno).Select(e => new NewUserViewModel
-            {
 
-                AccNo = e.AccNo,
-                AccHolderName = e.AccHolderName,
+        [HttpGet]
+        public IActionResult Edit(long id)
+        {
+            NewUserViewModel editselect = bankRepo.GetNewUser().Where(i => i.AccNo == id).Select(e => new NewUserViewModel
+            {
+                AccNo=e.AccNo,
+                AccHolderName=e.AccHolderName,
                 MobNo = e.MobNo,
                 EmailId = e.EmailId,
                 Gender = e.Gender,
                 DateOfBirth = e.DateOfBirth,
                 City = e.City,
                 AvlBalance = e.AvlBalance
+
             }).FirstOrDefault();
-            return View(selecteUser);
+            return View(editselect);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(NewUserViewModel edit)
+        {
+            if (ModelState.IsValid)
+            {
+                NewUser editEntity = new NewUser()
+                {
+                    AccNo= edit.AccNo,
+                    AccHolderName= edit.AccHolderName,
+                    MobNo = edit.MobNo,
+                    EmailId = edit.EmailId,
+                    Gender = edit.Gender,
+                    DateOfBirth = edit.DateOfBirth,
+                    City = edit.City,
+                    AvlBalance = edit.AvlBalance
+                };
+                bankRepo.EditUser(editEntity);
+            }
+            return RedirectToAction("NewUserDetails");
         }
 
 
         [HttpGet]
-        public IActionResult Delete(int accno)
+        public IActionResult Details(long id)
         {
-            NewUserViewModel selecteUser = userRepo.GetNewUser().Where(i => i.AccNo == accno).Select(e => new NewUserViewModel
+            NewUserViewModel selectUser = bankRepo.GetNewUser().Where(i => i.AccNo == id).Select(e => new NewUserViewModel
             {
+                AccNo=e.AccNo,
+                AccHolderName = e.AccHolderName,
+                MobNo = e.MobNo,
+                EmailId = e.EmailId,
+                Gender = e.Gender,
+                DateOfBirth = e.DateOfBirth,
+                City = e.City,
+                AvlBalance = e.AvlBalance
+            }).FirstOrDefault();
+            return View(selectUser);
+        }
 
+        [HttpGet]
+        public IActionResult Delete(long id)
+        {
+            NewUserViewModel selectUser = bankRepo.GetNewUser().Where(i => i.AccNo == id).Select(e => new NewUserViewModel
+            {
                 AccNo = e.AccNo,
                 AccHolderName = e.AccHolderName,
                 MobNo = e.MobNo,
@@ -175,15 +174,40 @@ namespace BankingSystem.Controllers
                 City = e.City,
                 AvlBalance = e.AvlBalance
             }).FirstOrDefault();
-            return View(selecteUser);
+            return View(selectUser);
         }
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-
-        public IActionResult DeleteConfirmed(int accno)
+        public IActionResult  DeleteConfirmed(long id)
         {
-            userRepo.DeleteUser(accno);
+            bankRepo.DeleteUser(id);
+            return RedirectToAction("NewUserDetails");
+        }
+
+
+
+
+        [HttpGet]
+        public IActionResult UserLogIn()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UserLogIn(string emailid,long mobno)
+        {
+            NewUserViewModel ValidUser = bankRepo.GetNewUser().Where(i => i.EmailId == emailid && i.MobNo == mobno ).Select(e => new NewUserViewModel
+            {
+               EmailId=e.EmailId,
+               MobNo=e.MobNo
+            }).FirstOrDefault();
+            if (ValidUser == null)
+            {
+                ViewBag.errormessage = "Enter Valid UserID,  Password";
+                return RedirectToAction("UserLogIn");
+            }
             return RedirectToAction("NewUserDetails");
         }
 

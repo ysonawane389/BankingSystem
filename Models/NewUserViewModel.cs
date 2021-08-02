@@ -1,34 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankingSystem.Models
 {
     public class NewUserViewModel
     {
         [Key]
-        [Required(ErrorMessage ="Please Enter AccNo")]
-        [MaxLength(8)]
-        public int AccNo { get; set; }
+       
+
+
+
+
+       [Required(ErrorMessage ="Account Number Should be 12 digit")]
+        public long AccNo { get; set; }
 
         [Required(ErrorMessage = "Please Enter AccHolderName")]
         public string AccHolderName { get; set; }
 
-        [Required(ErrorMessage = "Please Enter MobNo")]
-        [MaxLength(10)]
-        public int MobNo { get; set; }
+        [Required( ErrorMessage = "MobNo Number Should be 10 digit")]
+        public long MobNo { get; set; }
 
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Please Enter EmailId")]
         public string EmailId { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Gender")]
         public string Gender { get; set; }
+
+        [Required(ErrorMessage = "Please Enter DateOfBirth")]
         public string DateOfBirth { get; set; }
+
+        [Required(ErrorMessage = "Please Enter City")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Please Deposite Minimum 5000 ")]
-        [Range(5000,5000000)]
-        public int AvlBalance { get; set; }
+        [Range(5000, 5000000,ErrorMessage ="please Credit Minimum Balance 5000")]
+        public long AvlBalance { get; set; }
     }
 }

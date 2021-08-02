@@ -9,13 +9,13 @@ namespace BankingSystem.Models
     public class NewUser
     {
         [Key]
-        public int AccNo { get; set; }
+        public long AccNo { get; set; }
         public string AccHolderName { get; set; }
-        public int MobNo { get; set; }
+        public long MobNo { get; set; }
         public string EmailId { get; set; }
         public string Gender { get; set; }
         public string DateOfBirth { get; set; }
         public string City { get; set; }
-        public int AvlBalance { get; set; }
+        public long AvlBalance { get; set; }
     }
 }
