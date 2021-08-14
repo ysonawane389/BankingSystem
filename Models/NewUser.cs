@@ -17,5 +17,8 @@ namespace BankingSystem.Models
         public string DateOfBirth { get; set; }
         public string City { get; set; }
         public long AvlBalance { get; set; }
+        public string Password { get; set; }
+        public Boolean ActivationStatus { get; set; }
+       
     }
 }

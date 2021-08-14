@@ -30,6 +30,10 @@ namespace BankingSystem
             //entity framework
             services.AddDbContext<BankContext>(options => options.UseSqlServer(ConnectionString));
 
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);//You can set Time   
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,14 +54,17 @@ namespace BankingSystem
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Bank}/{action=HomePage}/{id?}");
-            });
+                    pattern: "{controller=Bank}/{action=UserLogin}/{id?}");
+                      
+        });
         }
     }
 }

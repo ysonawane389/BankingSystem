@@ -4,16 +4,16 @@
     ViewData["Title"] = "NewUserDetails";
 }
 
-<h1>NewUserDetails</h1>
+<h1>All Users Details</h1>
 <table     height="30px"width="1000px" >
     <tr>
 
         <th>
-            <h3>    <a asp-action="Create">Create New</a></h3>
+            <h3>    <a asp-action="Create"> New User</a></h3>
         </th>
         
         <th>
-             <div style="text-align:right">  <a asp-action="HomePage"><h3>LogOut Admin</h3></a></div>
+             <div style="text-align:right">  <a asp-action="UserLogin"><h3>Log Out</h3></a></div>
         </th>
     </tr>
     </table>
@@ -22,30 +22,27 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AccNo)
+               <h5> Account Number</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AccHolderName)
+                <h5>Account Holder Name</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MobNo)
+                <h5>Mobile Number</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmailId)
+                <h5>Email Id</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                <h5>Gender</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+                <h5>Date Of 
+                Birth</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                <h5>City</h5>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvlBalance)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -71,9 +68,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvlBalance)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.AccNo">Edit</a> |

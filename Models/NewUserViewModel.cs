@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BankingSystem.Models
@@ -7,10 +8,6 @@ namespace BankingSystem.Models
     public class NewUserViewModel
     {
         [Key]
-       
-
-
-
 
        [Required(ErrorMessage ="Account Number Should be 12 digit")]
         public long AccNo { get; set; }
@@ -35,5 +32,10 @@ namespace BankingSystem.Models
 
         [Range(5000, 5000000,ErrorMessage ="please Credit Minimum Balance 5000")]
         public long AvlBalance { get; set; }
+
+        [MaxLength(8,ErrorMessage ="Password Length Should 8")]
+        public string Password { get; set; }
+        public Boolean  ActivationStatus { get; set; }
+
     }
 }

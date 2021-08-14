@@ -1,0 +1,76 @@
+﻿@model IEnumerable<BankingSystem.Models.NewUserViewModel>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+<p>
+    Welcome @ViewBag.Name
+</p>
+
+<th>
+    <div style="text-align:right">  <a asp-action="UserLogin"><h3>Log Out</h3></a></div>
+</th>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               <h5> Account Holdet Name</h5>
+            </th>
+            <th>
+              <h5>Mobile Number</h5>
+            </th>
+            <th>
+               <h5>Email Id</h5>
+            </th>
+            <th>
+               <h5>Gender</h5>
+            </th>
+            <th>
+                <h5>Date Of Birth</h5>
+            </th>
+            <th>
+               <h5>City</h5>
+            </th>
+            <th>
+               <h5>Available Balance</h5>
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccHolderName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvlBalance)
+                </td>
+               
+                <td>
+                    <a asp-action="Deposit">Deposit</a> |
+                    <a asp-action="Withdraw">Withdraw</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

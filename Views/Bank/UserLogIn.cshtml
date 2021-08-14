@@ -4,37 +4,37 @@
     ViewData["Title"] = "UserLogIn";
 }
 
-<h1>UserLogIn</h1>
 
-<h4>NewUserViewModel</h4>
+<h1 style="background-color:aqua;text-align:center"><b>Union Bank Of India</b></h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="UserLogIn">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="EmailId" class="control-label"></label>
-                <input asp-for="EmailId" class="form-control" />
-                <span asp-validation-for="EmailId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MobNo" class="control-label"></label>
-                <input asp-for="MobNo" class="form-control" />
-                <span asp-validation-for="MobNo" class="text-danger"></span>
-            </div>
+<h4 style="color:red">@ViewBag.errormessage</h4>
+<hr />
+<table style="align-content:baseline">
+    <div class="row" style="text-align:center">
+        <div class="col-md-4">
+            <form asp-action="UserLogIn">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                <div class="form-group">
+                    <label asp-for="EmailId" class="control-label">Email Id</label>
+                    <input asp-for="EmailId" class="form-control" />
+                    <span asp-validation-for="EmailId" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="LogIn" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"> Password</label>
+                    <input type="password" asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Log In" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="HomePage">Back to HomePage</a>
-</div>
+</table>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
